@@ -117,6 +117,15 @@ while (true) {
         break;
 }
 
+fruits.sort(function (a, b) 
+{
+    if (a.color < b.color) 
+        return -1;
+    if (a.color > b.color) 
+        return 1;
+    return 0;
+});
+
 function groupFruitsAndShowCalories(fruitsArray) 
 {
 
@@ -146,6 +155,21 @@ function groupFruitsAndShowCalories(fruitsArray)
         console.log(color + " - " + totalCalories + " kalorija");
     }
 
+    fruits.sort(function (a, b) {
+        if (a.boja < b.boja) return -1;
+        if (a.boja > b.boja) return 1;
+        return 0;
+      });
+
 }
 
+
+
 groupFruitsAndShowCalories(fruits);
+
+// 5. Korisnik redom upisuje imena, prezimena i bodove sportaša. 
+// Cilj je stvoriti 4 kategorije sportaša po broju bodova 
+// (stvorit ih na način da ide 0-25% osobe sa maksimum bodova, 
+// 25-50%, 50-75%, 75-100%). Cilj je ispisati sportaše svake kategorije, 
+// sortirane po prezimenu i da su napisani u formatu prezime ime.
+
