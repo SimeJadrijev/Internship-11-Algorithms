@@ -98,78 +98,167 @@
 //4. Unijeti niz voća sa imenom, bojom i kalorijama. Cilj je ispisati svo voće sa 
 // istom bojom i koliko ukupno kalorija to voće daje. Neka se sortira po imenu boje.
 
-const fruits = [];
+// const fruits = [];
 
-while (true) {
-    const name = prompt("Unesite ime voća");
-    const color = prompt("Unesite boju voća");
-    const calories = +prompt("Unesite broj kalorija");
+// while (true) {
+//     const name = prompt("Unesite ime voća");
+//     const color = prompt("Unesite boju voća");
+//     const calories = +prompt("Unesite broj kalorija");
 
-    let fruit = {
-        name: name,
-        color: color,
-        calories: calories
-    };
-    fruits.push(fruit);
+//     let fruit = {
+//         name: name,
+//         color: color,
+//         calories: calories
+//     };
+//     fruits.push(fruit);
 
-    const continuation = confirm("Želite li nastavit unos?");
-    if (!continuation)
-        break;
-}
+//     const continuation = confirm("Želite li nastavit unos?");
+//     if (!continuation)
+//         break;
+// }
 
-fruits.sort(function (a, b) 
-{
-    if (a.color < b.color) 
-        return -1;
-    if (a.color > b.color) 
-        return 1;
-    return 0;
-});
+// fruits.sort(function (a, b) 
+// {
+//     if (a.color < b.color) 
+//         return -1;
+//     if (a.color > b.color) 
+//         return 1;
+//     return 0;
+// });
 
-function groupFruitsAndShowCalories(fruitsArray) 
-{
+// function groupFruitsAndShowCalories(fruitsArray) 
+// {
 
-    const groupedFruits = {};
+//     const groupedFruits = {};
 
-    fruitsArray.forEach(function(fruit)
-    {
+//     fruitsArray.forEach(function(fruit)
+//     {
          
-        if (!groupedFruits[fruit.color])
-            groupedFruits[fruit.color] = [];
+//         if (!groupedFruits[fruit.color])
+//             groupedFruits[fruit.color] = [];
 
-        groupedFruits[fruit.color].push(fruit);
-    });
+//         groupedFruits[fruit.color].push(fruit);
+//     });
 
-    for (let color in groupedFruits)
-    {
-        let totalCalories = 0;
+//     for (let color in groupedFruits)
+//     {
+//         let totalCalories = 0;
 
-        groupedFruits[color].forEach
-        (
-            function (fruit) 
-            {
-                totalCalories += fruit.calories;
-            }
-        )
+//         groupedFruits[color].forEach
+//         (
+//             function (fruit) 
+//             {
+//                 totalCalories += fruit.calories;
+//             }
+//         )
 
-        console.log(color + " - " + totalCalories + " kalorija");
-    }
+//         console.log(color + " - " + totalCalories + " kalorija");
+//     }
 
-    fruits.sort(function (a, b) {
-        if (a.boja < b.boja) return -1;
-        if (a.boja > b.boja) return 1;
-        return 0;
-      });
+//     fruits.sort(function (a, b) {
+//         if (a.boja < b.boja) return -1;
+//         if (a.boja > b.boja) return 1;
+//         return 0;
+//       });
 
-}
+// }
 
 
 
-groupFruitsAndShowCalories(fruits);
+// groupFruitsAndShowCalories(fruits);
 
 // 5. Korisnik redom upisuje imena, prezimena i bodove sportaša. 
 // Cilj je stvoriti 4 kategorije sportaša po broju bodova 
 // (stvorit ih na način da ide 0-25% osobe sa maksimum bodova, 
 // 25-50%, 50-75%, 75-100%). Cilj je ispisati sportaše svake kategorije, 
 // sortirane po prezimenu i da su napisani u formatu prezime ime.
+
+athletes = [];
+
+while (true) 
+{
+    const name = prompt("Unesite ime sportaša");
+    const surname = prompt("Unesite prezime sportaša");
+    const points = +prompt("Unesite bodove sportaša");
+    
+    const athlete = {
+        name: name, 
+        surname: surname,
+        points: points
+    };
+    athletes.push(athlete);
+
+    const continuation = confirm("Želite li nastaviti s unosom?");
+    if (!continuation)
+        break;
+}
+
+SortAthletesbBySurname(athletes);
+
+const pointsArray = [];
+
+athletes.forEach(athlete => {
+    pointsArray.push(athlete.points);
+});
+
+const maxPoints = Math.max(...pointsArray);
+
+//categories:
+firstPointLimit = maxPoints * 0.25 ;
+secondPointLimit = maxPoints * 0.5 ;
+thirdPointLimit = maxPoints * 0.75 ;
+
+firstCategory = [];
+secondCategory = [];
+thirdCategory = [];
+fourthCategory = [];
+
+for (let i = 0; i < athletes.length; i++) 
+{
+    
+    targetedAthlete = athletes[i];
+
+    if (targetedAthlete.points <= firstPointLimit)
+        firstCategory.push(targetedAthlete);
+    else if (targetedAthlete.points <= secondPointLimit)
+        secondCategory.push(targetedAthlete);
+    else if (targetedAthlete.points <= thirdPointLimit)
+        thirdCategory.push(targetedAthlete);
+    else
+        fourthCategory.push(targetedAthlete);
+}
+
+function SortAthletesbBySurname (athletesArray)
+{
+    athletesArray.sort
+    ( function (a,b)
+    {
+        if (a.surname < b.surname)
+            return -1;
+        if (a.surname > b.surname)
+            return 1;
+        return 0;
+    }
+    );
+}
+
+function PrintAthletesPerCategory(categoryName, athletesArray) 
+{
+    console.log(categoryName + ": \n");
+    
+    for (let i = 0; i < athletesArray.length; i++) 
+    {
+        const targetedAthlete = athletesArray[i];
+        console.log(targetedAthlete.surname + " " + targetedAthlete.name);
+    }
+}
+
+PrintAthletesPerCategory("Prva kategorija", firstCategory);
+PrintAthletesPerCategory("Druga kategorija", secondCategory);
+PrintAthletesPerCategory("Treća kategorija", thirdCategory);
+PrintAthletesPerCategory("Četvrta kategorija", fourthCategory);
+
+
+
+
 
