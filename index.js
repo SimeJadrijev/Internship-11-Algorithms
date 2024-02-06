@@ -173,92 +173,155 @@
 // 25-50%, 50-75%, 75-100%). Cilj je ispisati sportaše svake kategorije, 
 // sortirane po prezimenu i da su napisani u formatu prezime ime.
 
-athletes = [];
+// athletes = [];
 
-while (true) 
-{
-    const name = prompt("Unesite ime sportaša");
-    const surname = prompt("Unesite prezime sportaša");
-    const points = +prompt("Unesite bodove sportaša");
+// while (true) 
+// {
+//     const name = prompt("Unesite ime sportaša");
+//     const surname = prompt("Unesite prezime sportaša");
+//     const points = +prompt("Unesite bodove sportaša");
     
-    const athlete = {
-        name: name, 
-        surname: surname,
-        points: points
+//     const athlete = {
+//         name: name, 
+//         surname: surname,
+//         points: points
+//     };
+//     athletes.push(athlete);
+
+//     const continuation = confirm("Želite li nastaviti s unosom?");
+//     if (!continuation)
+//         break;
+// }
+
+// SortAthletesbBySurname(athletes);
+
+// const pointsArray = [];
+
+// athletes.forEach(athlete => {
+//     pointsArray.push(athlete.points);
+// });
+
+// const maxPoints = Math.max(...pointsArray);
+
+// //categories:
+// firstPointLimit = maxPoints * 0.25 ;
+// secondPointLimit = maxPoints * 0.5 ;
+// thirdPointLimit = maxPoints * 0.75 ;
+
+// firstCategory = [];
+// secondCategory = [];
+// thirdCategory = [];
+// fourthCategory = [];
+
+// for (let i = 0; i < athletes.length; i++) 
+// {
+    
+//     targetedAthlete = athletes[i];
+
+//     if (targetedAthlete.points <= firstPointLimit)
+//         firstCategory.push(targetedAthlete);
+//     else if (targetedAthlete.points <= secondPointLimit)
+//         secondCategory.push(targetedAthlete);
+//     else if (targetedAthlete.points <= thirdPointLimit)
+//         thirdCategory.push(targetedAthlete);
+//     else
+//         fourthCategory.push(targetedAthlete);
+// }
+
+// function SortAthletesbBySurname (athletesArray)
+// {
+//     athletesArray.sort
+//     ( function (a,b)
+//     {
+//         if (a.surname < b.surname)
+//             return -1;
+//         if (a.surname > b.surname)
+//             return 1;
+//         return 0;
+//     }
+//     );
+// }
+
+// function PrintAthletesPerCategory(categoryName, athletesArray) 
+// {
+//     console.log(categoryName + ": \n");
+    
+//     for (let i = 0; i < athletesArray.length; i++) 
+//     {
+//         const targetedAthlete = athletesArray[i];
+//         console.log(targetedAthlete.surname + " " + targetedAthlete.name);
+//     }
+// }
+
+// PrintAthletesPerCategory("Prva kategorija", firstCategory);
+// PrintAthletesPerCategory("Druga kategorija", secondCategory);
+// PrintAthletesPerCategory("Treća kategorija", thirdCategory);
+// PrintAthletesPerCategory("Četvrta kategorija", fourthCategory);
+
+// 6. Upisati ime, cijenu i dostupnost proizvoda. Ispisati indexe svih nedostupnih 
+// proizvoda i napraviti novi niz sa dostupnim voćem. Sortirati ga po imenu cijeni, 
+// a ako je ista cijena po imenu voća te ispisati taj niz. Na kraju ispisati koliko 
+// posto ukupne cijene svih proizvoda doprinosi nedostupno voće
+
+const allFruits = [];
+
+while (true) {
+    
+    const name = prompt("Unesite ime voća");
+    const price = +prompt("Unesite cijenu voća");
+    const isAvailable = confirm("Je li ovo voće dostupno?");
+
+    const fruit = {
+        name: name,
+        price: price,
+        isAvailable: isAvailable
     };
-    athletes.push(athlete);
+
+    allFruits.push(fruit);
 
     const continuation = confirm("Želite li nastaviti s unosom?");
     if (!continuation)
         break;
+
 }
 
-SortAthletesbBySurname(athletes);
-
-const pointsArray = [];
-
-athletes.forEach(athlete => {
-    pointsArray.push(athlete.points);
+allFruits.sort((a, b) => 
+{
+    if (a.price !== b.price) {
+        return a.price - b.price;
+    }
+    if (a.name < b.name) {
+        return -1;
+    }
+    if (a.name > b.name) {
+        return 1;
+    }
+    return 0; 
 });
 
-const maxPoints = Math.max(...pointsArray);
+const unavailableFruits = [];
+const availableFruits = [];
 
-//categories:
-firstPointLimit = maxPoints * 0.25 ;
-secondPointLimit = maxPoints * 0.5 ;
-thirdPointLimit = maxPoints * 0.75 ;
-
-firstCategory = [];
-secondCategory = [];
-thirdCategory = [];
-fourthCategory = [];
-
-for (let i = 0; i < athletes.length; i++) 
+for (let i=0; i < allFruits.length; i++)
 {
-    
-    targetedAthlete = athletes[i];
-
-    if (targetedAthlete.points <= firstPointLimit)
-        firstCategory.push(targetedAthlete);
-    else if (targetedAthlete.points <= secondPointLimit)
-        secondCategory.push(targetedAthlete);
-    else if (targetedAthlete.points <= thirdPointLimit)
-        thirdCategory.push(targetedAthlete);
+    if (allFruits[i].isAvailable === false)
+        unavailableFruits.push(i);
     else
-        fourthCategory.push(targetedAthlete);
+        availableFruits.push(allFruits[i].name);
 }
 
-function SortAthletesbBySurname (athletesArray)
-{
-    athletesArray.sort
-    ( function (a,b)
-    {
-        if (a.surname < b.surname)
-            return -1;
-        if (a.surname > b.surname)
-            return 1;
-        return 0;
-    }
-    );
-}
+let totalPriceUnavailableFruits = 0;
+unavailableFruits.forEach(i => {
+    totalPriceUnavailableFruits += allFruits[i].price;
+});
 
-function PrintAthletesPerCategory(categoryName, athletesArray) 
-{
-    console.log(categoryName + ": \n");
-    
-    for (let i = 0; i < athletesArray.length; i++) 
-    {
-        const targetedAthlete = athletesArray[i];
-        console.log(targetedAthlete.surname + " " + targetedAthlete.name);
-    }
-}
+const totalPrice = allFruits.reduce((sum, value) => sum + value.price, 0);
 
-PrintAthletesPerCategory("Prva kategorija", firstCategory);
-PrintAthletesPerCategory("Druga kategorija", secondCategory);
-PrintAthletesPerCategory("Treća kategorija", thirdCategory);
-PrintAthletesPerCategory("Četvrta kategorija", fourthCategory);
+const percentage = (totalPriceUnavailableFruits / totalPrice) * 100;
 
+console.log("Indeksi svih nedostupnih voća: " + unavailableFruits);
+console.log("Sortirana lista dostupnog voća: " + availableFruits);
 
-
+console.log("Nedostupno voće doprinosi " + percentage.toFixed(2) + "% ukupne cijene svog voća");
 
 
