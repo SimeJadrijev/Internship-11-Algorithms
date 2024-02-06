@@ -50,47 +50,97 @@
 // Cilj zadatka je izračunati prosjek plaće za svako zanimanje i ispisati 
 // sortirano objekte gdje piše zanimanje, prosjek i koliko osoba radi to zanimanje.
 
-const people = [];
-const professions = [];
+// const people = [];
+// const professions = [];
 
-while (true) {
+// while (true) {
 
-    const name = prompt("Unesite ime: ");
-    const surname = prompt("Unesite prezime: ");
-    const profession = prompt("Unesite zanimanje: ");
-    const salary = +prompt("Unesite plaću: ");
+//     const name = prompt("Unesite ime: ");
+//     const surname = prompt("Unesite prezime: ");
+//     const profession = prompt("Unesite zanimanje: ");
+//     const salary = +prompt("Unesite plaću: ");
 
-    const person = {
-        name, surname, profession, salary
-    };
+//     const person = {
+//         name, surname, profession, salary
+//     };
 
-    people.push(person);
+//     people.push(person);
     
-    if (!professions.some( (element) => element.profession == profession) )
-        professions.push( {profession, average: salary, count: 1});
-    else
-    {
-        professions.filter( (x) => x.profession == profession ).map( (y) => (y.average = ( y.average * y.count + salary ) / (y.count + 1) ) 
-                                                                                            && (y.count = y.count + 1));
-    }
+//     if (!professions.some( (element) => element.profession == profession) )
+//         professions.push( {profession, average: salary, count: 1});
+//     else
+//     {
+//         professions.filter( (x) => x.profession == profession ).map( (y) => (y.average = ( y.average * y.count + salary ) / (y.count + 1) ) 
+//                                                                                             && (y.count = y.count + 1));
+//     }
     
-    const continuation = confirm("Želite li nastaviti unos?");
+//     const continuation = confirm("Želite li nastaviti unos?");
 
-    if (!continuation)
-        break;
-}
+//     if (!continuation)
+//         break;
+// }
 
-professions.sort( (a,b) => a.count - b.count).sort( (a,b) => a.average - b.average);
+// professions.sort( (a,b) => a.count - b.count).sort( (a,b) => a.average - b.average);
 
-professions.forEach( (element) =>
-        console.log(`zanimanje: ${element.profession} - prosjek: ${element.average} - broj zaposlenika: ${element.count}`)
-    );
-    
+// professions.forEach( (element) =>
+//         console.log(`zanimanje: ${element.profession} - prosjek: ${element.average} - broj zaposlenika: ${element.count}`)
+//     );
+
 // 3. Isti unos kao u drugom zadatku. Treba izračunati zbroj svih 
 // plaća zajedno i ispisati objekt u kojem se nalazi ime zanimanja, 
 // postotak koliko to zanimanje pridonosi ukupnoj plaći, i nizu objekata 
 // koji se sastoje od imena osobe i postotak koliko ta osoba pridonosi 
 // ukupnoj plaći zanimanja
+
+const people = [];
+const professions = [];
+
+while (true) {
+    const name = prompt("Unesite ime: ");
+    const surname = prompt("Unesite prezime: ");
+    const profession = prompt("Unesite zanimanje: ");
+    const salary = +prompt("Unesite plaću: ");
+
+    const person = { name, surname, profession, salary };
+    people.push(person);
+
+    if (!professions.some((el) => el.profession === profession)) {
+        professions.push({ profession, totalSalary: 0, employees: [] });
+    }
+
+    const continuation = confirm("Želite li nastaviti unos?");
+    if (!continuation) break;
+}
+
+const totalSalarySum = people.reduce((sum, person) => sum + person.salary, 0);
+
+professions.forEach((prof) => {
+    const professionSalarySum = people.filter((person) => person.profession === prof.profession)
+                                      .reduce((sum, person) => sum + person.salary, 0);
+
+    prof.totalSalary = ((professionSalarySum / totalSalarySum) * 100).toFixed(2);
+
+    const employeesPercentage = people.filter((person) => person.profession === prof.profession)
+                                        .map((person) => ({
+                                            name: person.name,
+                                            percentage: ((person.salary / professionSalarySum) * 100).toFixed(2),
+                                        }));
+
+    prof.employees = employeesPercentage;
+});
+
+professions.forEach((prof) => {
+    console.log(`Zanimanje: ${prof.profession}`);
+    console.log(`Postotak od ukupne plaće: ${prof.totalSalary}%`);
+    console.log("Zaposlenici i njihov postotak od ukupne plaće zanimanja:");
+
+    prof.employees.forEach((emp) => {
+        console.log(`- ${emp.name}: ${emp.percentage}%`);
+    });
+
+    console.log("");
+});
+
 
 
 //4. Unijeti niz voća sa imenom, bojom i kalorijama. Cilj je ispisati svo voće sa 
