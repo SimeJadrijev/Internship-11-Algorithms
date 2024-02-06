@@ -263,16 +263,83 @@
 // a ako je ista cijena po imenu voća te ispisati taj niz. Na kraju ispisati koliko 
 // posto ukupne cijene svih proizvoda doprinosi nedostupno voće
 
+// const allFruits = [];
+
+// while (true) {
+    
+//     const name = prompt("Unesite ime voća");
+//     const price = +prompt("Unesite cijenu voća");
+//     const isAvailable = confirm("Je li ovo voće dostupno?");
+
+//     const fruit = {
+//         name: name,
+//         price: price,
+//         isAvailable: isAvailable
+//     };
+
+//     allFruits.push(fruit);
+
+//     const continuation = confirm("Želite li nastaviti s unosom?");
+//     if (!continuation)
+//         break;
+
+// }
+
+// allFruits.sort((a, b) => 
+// {
+//     if (a.price !== b.price) {
+//         return a.price - b.price;
+//     }
+//     if (a.name < b.name) {
+//         return -1;
+//     }
+//     if (a.name > b.name) {
+//         return 1;
+//     }
+//     return 0; 
+// });
+
+// const unavailableFruits = [];
+// const availableFruits = [];
+
+// for (let i=0; i < allFruits.length; i++)
+// {
+//     if (allFruits[i].isAvailable === false)
+//         unavailableFruits.push(i);
+//     else
+//         availableFruits.push(allFruits[i].name);
+// }
+
+// let totalPriceUnavailableFruits = 0;
+// unavailableFruits.forEach(i => {
+//     totalPriceUnavailableFruits += allFruits[i].price;
+// });
+
+// const totalPrice = allFruits.reduce((sum, value) => sum + value.price, 0);
+
+// const percentage = (totalPriceUnavailableFruits / totalPrice) * 100;
+
+// console.log("Indeksi svih nedostupnih voća: " + unavailableFruits);
+// console.log("Sortirana lista dostupnog voća: " + availableFruits);
+
+// console.log("Nedostupno voće doprinosi " + percentage.toFixed(2) + "% ukupne cijene svog voća");
+
+
+// 7. Isti unos kao u 6. zadatku. Iz niza voća napraviti novi niz gdje svim dostupnim voćima je boja crvena 
+// i svim nedostupnim žuta, sortirati ih po boji pa po imenu i ispisati niz.
+
 const allFruits = [];
 
 while (true) {
     
     const name = prompt("Unesite ime voća");
+    const color = prompt("Unesite boju voća");
     const price = +prompt("Unesite cijenu voća");
     const isAvailable = confirm("Je li ovo voće dostupno?");
 
     const fruit = {
         name: name,
+        color: color,
         price: price,
         isAvailable: isAvailable
     };
@@ -282,46 +349,41 @@ while (true) {
     const continuation = confirm("Želite li nastaviti s unosom?");
     if (!continuation)
         break;
-
 }
 
-allFruits.sort((a, b) => 
-{
-    if (a.price !== b.price) {
-        return a.price - b.price;
-    }
-    if (a.name < b.name) {
+allFruits.sort((a, b) => {
+    if (a.color < b.color)
         return -1;
-    }
-    if (a.name > b.name) {
+    if (a.color > b.color)
+        return 1
+    if (a.name < b.name)
+        return -1;
+    if (a.name > b.name)
         return 1;
+});
+
+
+let availableFruits = allFruits.filter(fruit => fruit.isAvailable === true);
+availableFruits = availableFruits.map(fruit => ({...fruit, color: "crvena"}) );
+
+let unavailableFruits = allFruits.filter(fruit => fruit.isAvailable === false);
+unavailableFruits = unavailableFruits.map(fruit => ({...fruit, color: "zuta"}) );
+
+const printFruits = (title, fruitsArray) => {
+    console.log(title + ": ");
+    // fruitsArray.forEach(fruit => {
+    //     console.log(`ime: ${fruit.name} - boja: ${fruit.color} - cijena: ${fruit.price}`);
+    // })
+    // console.log();
+
+    if (Array.isArray(fruitsArray)) {
+        fruitsArray.forEach(fruit => {
+            console.log(`ime: ${fruit.name} - boja: ${fruit.color} - cijena: ${fruit.price}`);
+        });
+    } else {
+        console.log("Nema dostupnih voća za ispis.");
     }
-    return 0; 
-});
+} 
 
-const unavailableFruits = [];
-const availableFruits = [];
-
-for (let i=0; i < allFruits.length; i++)
-{
-    if (allFruits[i].isAvailable === false)
-        unavailableFruits.push(i);
-    else
-        availableFruits.push(allFruits[i].name);
-}
-
-let totalPriceUnavailableFruits = 0;
-unavailableFruits.forEach(i => {
-    totalPriceUnavailableFruits += allFruits[i].price;
-});
-
-const totalPrice = allFruits.reduce((sum, value) => sum + value.price, 0);
-
-const percentage = (totalPriceUnavailableFruits / totalPrice) * 100;
-
-console.log("Indeksi svih nedostupnih voća: " + unavailableFruits);
-console.log("Sortirana lista dostupnog voća: " + availableFruits);
-
-console.log("Nedostupno voće doprinosi " + percentage.toFixed(2) + "% ukupne cijene svog voća");
-
-
+printFruits("Dostupna voća: ", availableFruits);
+printFruits("Nedostupna voća: ", unavailableFruits);
