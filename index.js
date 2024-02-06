@@ -392,16 +392,44 @@
 // (zabranjeno korištenje formule). Sami napravite array s prvih 100 prirodnih brojeva 
 // (bonus points ako napravit bez petlje)
 
-let numbers = [];
-let sum = 0;
-for (let i = 1; i < 101; i++) {
-    numbers.push(i);
+// let numbers = [];
+// let sum = 0;
+// for (let i = 1; i < 101; i++) {
+//     numbers.push(i);
+// }
+
+// while (numbers.length > 0)
+// {
+//     sum += numbers[0];
+//     numbers.splice(0,1);
+// }
+
+// console.log(sum);
+
+// 9. Traži unos imena osoba, sortiraj ih i filtriraj da budu imena sa više od 5 slova te 
+// ih ispiši u csv formatu (comma seperated values)
+
+const people = [];
+
+while (true) {
+    
+    const name = prompt("Unesite ime osobe");
+    people.push(name);
+
+    const continuation = confirm("Želite li nastaviti unos?");
+    if (!continuation)
+        break;
+
 }
 
-while (numbers.length > 0)
-{
-    sum += numbers[0];
-    numbers.splice(0,1);
-}
+people.sort( (a,b) => {
+    if (a < b)
+        return -1;
+    if (a > b)
+        return 1;
+    return 0;
+})
 
-console.log(sum);
+
+const namesWithFiveLetters = people.filter(name => name.length > 5);
+console.log(namesWithFiveLetters.join(', '));
