@@ -328,62 +328,80 @@
 // 7. Isti unos kao u 6. zadatku. Iz niza voća napraviti novi niz gdje svim dostupnim voćima je boja crvena 
 // i svim nedostupnim žuta, sortirati ih po boji pa po imenu i ispisati niz.
 
-const allFruits = [];
+// const allFruits = [];
 
-while (true) {
+// while (true) {
     
-    const name = prompt("Unesite ime voća");
-    const color = prompt("Unesite boju voća");
-    const price = +prompt("Unesite cijenu voća");
-    const isAvailable = confirm("Je li ovo voće dostupno?");
+//     const name = prompt("Unesite ime voća");
+//     const color = prompt("Unesite boju voća");
+//     const price = +prompt("Unesite cijenu voća");
+//     const isAvailable = confirm("Je li ovo voće dostupno?");
 
-    const fruit = {
-        name: name,
-        color: color,
-        price: price,
-        isAvailable: isAvailable
-    };
+//     const fruit = {
+//         name: name,
+//         color: color,
+//         price: price,
+//         isAvailable: isAvailable
+//     };
 
-    allFruits.push(fruit);
+//     allFruits.push(fruit);
 
-    const continuation = confirm("Želite li nastaviti s unosom?");
-    if (!continuation)
-        break;
+//     const continuation = confirm("Želite li nastaviti s unosom?");
+//     if (!continuation)
+//         break;
+// }
+
+// allFruits.sort((a, b) => {
+//     if (a.color < b.color)
+//         return -1;
+//     if (a.color > b.color)
+//         return 1
+//     if (a.name < b.name)
+//         return -1;
+//     if (a.name > b.name)
+//         return 1;
+// });
+
+
+// let availableFruits = allFruits.filter(fruit => fruit.isAvailable === true);
+// availableFruits = availableFruits.map(fruit => ({...fruit, color: "crvena"}) );
+
+// let unavailableFruits = allFruits.filter(fruit => fruit.isAvailable === false);
+// unavailableFruits = unavailableFruits.map(fruit => ({...fruit, color: "zuta"}) );
+
+// const printFruits = (title, fruitsArray) => {
+//     console.log(title + ": ");
+//     // fruitsArray.forEach(fruit => {
+//     //     console.log(`ime: ${fruit.name} - boja: ${fruit.color} - cijena: ${fruit.price}`);
+//     // })
+//     // console.log();
+
+//     if (Array.isArray(fruitsArray)) {
+//         fruitsArray.forEach(fruit => {
+//             console.log(`ime: ${fruit.name} - boja: ${fruit.color} - cijena: ${fruit.price}`);
+//         });
+//     } else {
+//         console.log("Nema dostupnih voća za ispis.");
+//     }
+// } 
+
+// printFruits("Dostupna voća: ", availableFruits);
+// printFruits("Nedostupna voća: ", unavailableFruits);
+
+// 8. Riješi problem Gaussove dosjetke koristeći petlje i JS ugrađene funkcije nad nizovima 
+// (zabranjeno korištenje formule). Sami napravite array s prvih 100 prirodnih brojeva 
+// (bonus points ako napravit bez petlje)
+
+let numbers = [];
+let sum = 0;
+for (let i = 1; i < 101; i++) {
+    numbers.push(i);
 }
 
-allFruits.sort((a, b) => {
-    if (a.color < b.color)
-        return -1;
-    if (a.color > b.color)
-        return 1
-    if (a.name < b.name)
-        return -1;
-    if (a.name > b.name)
-        return 1;
-});
+while (numbers.length > 0)
+{
+    sum += numbers[0];
+    numbers.splice(0,1);
+}
 
-
-let availableFruits = allFruits.filter(fruit => fruit.isAvailable === true);
-availableFruits = availableFruits.map(fruit => ({...fruit, color: "crvena"}) );
-
-let unavailableFruits = allFruits.filter(fruit => fruit.isAvailable === false);
-unavailableFruits = unavailableFruits.map(fruit => ({...fruit, color: "zuta"}) );
-
-const printFruits = (title, fruitsArray) => {
-    console.log(title + ": ");
-    // fruitsArray.forEach(fruit => {
-    //     console.log(`ime: ${fruit.name} - boja: ${fruit.color} - cijena: ${fruit.price}`);
-    // })
-    // console.log();
-
-    if (Array.isArray(fruitsArray)) {
-        fruitsArray.forEach(fruit => {
-            console.log(`ime: ${fruit.name} - boja: ${fruit.color} - cijena: ${fruit.price}`);
-        });
-    } else {
-        console.log("Nema dostupnih voća za ispis.");
-    }
-} 
-
-printFruits("Dostupna voća: ", availableFruits);
-printFruits("Nedostupna voća: ", unavailableFruits);
+console.log(sum);
