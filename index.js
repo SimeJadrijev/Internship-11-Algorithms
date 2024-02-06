@@ -50,50 +50,48 @@
 // Cilj zadatka je izračunati prosjek plaće za svako zanimanje i ispisati 
 // sortirano objekte gdje piše zanimanje, prosjek i koliko osoba radi to zanimanje.
 
-// const people = [];
-// const dictionary = [];
+const people = [];
+const professions = [];
 
-// while (true) {
+while (true) {
 
-//     const name = prompt("Unesite ime: ");
-//     const surname = prompt("Unesite prezime: ");
-//     const profession = prompt("Unesite zanimanje: ");
-//     const salary = +prompt("Unesite plaću: ");
+    const name = prompt("Unesite ime: ");
+    const surname = prompt("Unesite prezime: ");
+    const profession = prompt("Unesite zanimanje: ");
+    const salary = +prompt("Unesite plaću: ");
 
-//     const person = {
-//         name, surname, profession, salary
-//     };
+    const person = {
+        name, surname, profession, salary
+    };
 
-//     people.push(person);
+    people.push(person);
     
-
-//     let alreadyExists = professions.some(item => item.profession === profession);
-
-//     if (alreadyExists) {
-//         dictionary[profession].salary += salary;
-//         dictionary[profession].count++;
-//     }
-//     else
-//     {
-//         dictionary.push(
-//             name, surname, profession, salary
-//         )
-//     }
+    if (!professions.some( (element) => element.profession == profession) )
+        professions.push( {profession, average: salary, count: 1});
+    else
+    {
+        professions.filter( (x) => x.profession == profession ).map( (y) => (y.average = ( y.average * y.count + salary ) / (y.count + 1) ) 
+                                                                                            && (y.count = y.count + 1));
+    }
     
-//     const continuation = confirm("Želite li nastaviti unos?");
+    const continuation = confirm("Želite li nastaviti unos?");
 
-//     if (!continuation)
-//         break;
-// }
-// nedovršeno
+    if (!continuation)
+        break;
+}
 
+professions.sort( (a,b) => a.count - b.count).sort( (a,b) => a.average - b.average);
+
+professions.forEach( (element) =>
+        console.log(`zanimanje: ${element.profession} - prosjek: ${element.average} - broj zaposlenika: ${element.count}`)
+    );
+    
 // 3. Isti unos kao u drugom zadatku. Treba izračunati zbroj svih 
 // plaća zajedno i ispisati objekt u kojem se nalazi ime zanimanja, 
 // postotak koliko to zanimanje pridonosi ukupnoj plaći, i nizu objekata 
 // koji se sastoje od imena osobe i postotak koliko ta osoba pridonosi 
 // ukupnoj plaći zanimanja
 
-//preskočeno
 
 //4. Unijeti niz voća sa imenom, bojom i kalorijama. Cilj je ispisati svo voće sa 
 // istom bojom i koliko ukupno kalorija to voće daje. Neka se sortira po imenu boje.
@@ -409,27 +407,27 @@
 // 9. Traži unos imena osoba, sortiraj ih i filtriraj da budu imena sa više od 5 slova te 
 // ih ispiši u csv formatu (comma seperated values)
 
-const people = [];
+// const people = [];
 
-while (true) {
+// while (true) {
     
-    const name = prompt("Unesite ime osobe");
-    people.push(name);
+//     const name = prompt("Unesite ime osobe");
+//     people.push(name);
 
-    const continuation = confirm("Želite li nastaviti unos?");
-    if (!continuation)
-        break;
+//     const continuation = confirm("Želite li nastaviti unos?");
+//     if (!continuation)
+//         break;
 
-}
+// }
 
-people.sort( (a,b) => {
-    if (a < b)
-        return -1;
-    if (a > b)
-        return 1;
-    return 0;
-})
+// people.sort( (a,b) => {
+//     if (a < b)
+//         return -1;
+//     if (a > b)
+//         return 1;
+//     return 0;
+// })
 
 
-const namesWithFiveLetters = people.filter(name => name.length > 5);
-console.log(namesWithFiveLetters.join(', '));
+// const namesWithFiveLetters = people.filter(name => name.length > 5);
+// console.log(namesWithFiveLetters.join(', '));
